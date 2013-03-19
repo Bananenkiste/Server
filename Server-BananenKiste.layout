@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="Chatwindow.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="640" topLine="0" />
+	</File>
+	<File name="Chatwindow.hpp" open="0" top="0" tabpos="0">
+		<Cursor position="129" topLine="0" />
+	</File>
+	<File name="Game.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="454" topLine="12" />
+	</File>
+	<File name="Game.hpp" open="1" top="0" tabpos="1">
+		<Cursor position="678" topLine="8" />
+	</File>
+	<File name="Interface.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="163" topLine="0" />
+	</File>
+	<File name="Message.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="126" topLine="0" />
+	</File>
+	<File name="Message.hpp" open="0" top="0" tabpos="0">
+		<Cursor position="297" topLine="0" />
+	</File>
+	<File name="Network.cpp" open="1" top="1" tabpos="5">
+		<Cursor position="2621" topLine="91" />
+	</File>
+	<File name="Network.hpp" open="0" top="0" tabpos="7">
+		<Cursor position="557" topLine="0" />
+	</File>
+	<File name="Player.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="1420" topLine="28" />
+	</File>
+	<File name="Player.hpp" open="1" top="0" tabpos="4">
+		<Cursor position="379" topLine="0" />
+	</File>
+	<File name="Time.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="201" topLine="0" />
+	</File>
+	<File name="main.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="322" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

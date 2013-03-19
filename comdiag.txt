@@ -1,0 +1,9 @@
+Client					-	Server
+BBM|RQSRV				-	BBM|SRV|(ip)
+IDENT|(name)			-	
+MSG|(msg)				-	MSG|(clientname):(msg)
+MOVE|x,y,timestamp)		-	MOVE|(x,y,timestamp)
+BOMB|x,y,timer,tstamp)	-	BOMB|(x,y,timer,tstamp)
+						-	DIE
+						-	WIN
+						-	ROUNDEND

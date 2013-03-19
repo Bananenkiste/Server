@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1360267881 source:d:\skydrive\my programs\c++\socket\main.cpp
+	<iostream>
+	"Game.hpp"
+
+1359461768 d:\skydrive\my programs\c++\socket\network.hpp
+	<iostream>
+	<winsock2.h>
+	<windows.h>
+
+1360265412 source:d:\skydrive\my programs\c++\socket\network.cpp
+	"Network.hpp"
+
+1360264220 source:d:\skydrive\my programs\c++\socket\player.cpp
+	"Player.hpp"
+
+1360264186 d:\skydrive\my programs\c++\socket\player.hpp
+	<glm/glm.hpp>
+	<iostream>
+
+1360267395 d:\skydrive\my programs\c++\socket\game.hpp
+	<vector>
+

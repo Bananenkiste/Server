@@ -1,0 +1,155 @@
+# depslib dependency file v1.0
+1363126831 source:d:\skydrive\my programs\c++\server\player.cpp
+	"Player.hpp"
+	"Network.hpp"
+	"Game.hpp"
+	"Chatwindow.hpp"
+	<sstream>
+
+1363126844 d:\skydrive\my programs\c++\server\player.hpp
+	<glm/glm.hpp>
+	<iostream>
+	<winsock2.h>
+	<windows.h>
+
+1360267881 source:d:\skydrive\my programs\c++\server\main.cpp
+	<iostream>
+	"Game.hpp"
+
+1363126764 d:\skydrive\my programs\c++\server\game.hpp
+	<sfml/window.hpp>
+	<sfml/graphics.hpp>
+	<vector>
+
+1363013268 source:d:\skydrive\my programs\c++\server\network.cpp
+	"Network.hpp"
+	<sstream>
+	<stdio.h>
+
+1361492600 d:\skydrive\my programs\c++\server\network.hpp
+	<iostream>
+	<winsock2.h>
+	<windows.h>
+
+1363126908 source:d:\skydrive\my programs\c++\server\game.cpp
+	<iostream>
+	<winsock2.h>
+	<windows.h>
+	<process.h>
+	"Game.hpp"
+	"Network.hpp"
+	"Player.hpp"
+	"Chatwindow.hpp"
+	"Time.hpp"
+
+1360597671 source:d:\skydrive\my programs\c++\server\stage.cpp
+	"Stage.hpp"
+	"Game.hpp"
+
+1360597659 d:\skydrive\my programs\c++\server\stage.hpp
+
+1360604601 source:d:\skydrive\my programs\c++\server\interface.cpp
+	"Interface.hpp"
+
+1360604596 d:\skydrive\my programs\c++\server\interface.hpp
+	<sfml/window.hpp>
+	<sfml/graphics.hpp>
+
+1360615289 source:d:\skydrive\my programs\c++\server\chatwindow.cpp
+	"Chatwindow.hpp"
+	"Message.hpp"
+
+1360613852 d:\skydrive\my programs\c++\server\chatwindow.hpp
+	<sfml/window.hpp>
+	<sfml/graphics.hpp>
+	<vector>
+
+1347478550 d:\skydrive\my programs\c++\server\time.hpp
+	<sfml/system.hpp>
+
+1347478548 source:d:\skydrive\my programs\c++\server\time.cpp
+	"Time.hpp"
+
+1360620401 source:d:\skydrive\my programs\c++\server\message.cpp
+	"Message.hpp"
+
+1360615138 d:\skydrive\my programs\c++\server\message.hpp
+	<iostream>
+	<sfml/window.hpp>
+	<sfml/graphics.hpp>
+
+1360615289 source:n:\skydrive\my programs\c++\server\chatwindow.cpp
+	"Chatwindow.hpp"
+	"Message.hpp"
+
+1360613852 n:\skydrive\my programs\c++\server\chatwindow.hpp
+	<sfml/window.hpp>
+	<sfml/graphics.hpp>
+	<vector>
+
+1360615138 n:\skydrive\my programs\c++\server\message.hpp
+	<iostream>
+	<sfml/window.hpp>
+	<sfml/graphics.hpp>
+
+1363614363 source:n:\skydrive\my programs\c++\server\game.cpp
+	<iostream>
+	<winsock2.h>
+	<windows.h>
+	<process.h>
+	"Game.hpp"
+	"Network.hpp"
+	"Player.hpp"
+	"Chatwindow.hpp"
+	"Time.hpp"
+
+1363696507 n:\skydrive\my programs\c++\server\game.hpp
+	<sfml/window.hpp>
+	<sfml/graphics.hpp>
+	<sfml/system.hpp>
+	<vector>
+
+1361492600 n:\skydrive\my programs\c++\server\network.hpp
+	<iostream>
+	<winsock2.h>
+	<windows.h>
+
+1363696020 n:\skydrive\my programs\c++\server\player.hpp
+	<glm/glm.hpp>
+	<iostream>
+	<winsock2.h>
+	<windows.h>
+	<sfml/system.hpp>
+
+1347474950 n:\skydrive\my programs\c++\server\time.hpp
+	<sfml/system.hpp>
+
+1360604601 source:n:\skydrive\my programs\c++\server\interface.cpp
+	"Interface.hpp"
+
+1360604596 n:\skydrive\my programs\c++\server\interface.hpp
+	<sfml/window.hpp>
+	<sfml/graphics.hpp>
+
+1360267881 source:n:\skydrive\my programs\c++\server\main.cpp
+	<iostream>
+	"Game.hpp"
+
+1360620401 source:n:\skydrive\my programs\c++\server\message.cpp
+	"Message.hpp"
+
+1363013268 source:n:\skydrive\my programs\c++\server\network.cpp
+	"Network.hpp"
+	<sstream>
+	<stdio.h>
+
+1347474948 source:n:\skydrive\my programs\c++\server\time.cpp
+	"Time.hpp"
+
+1363696136 source:n:\skydrive\my programs\c++\server\player.cpp
+	"Player.hpp"
+	"Network.hpp"
+	"Game.hpp"
+	"Chatwindow.hpp"
+	<sstream>
+
