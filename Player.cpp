@@ -3,26 +3,24 @@
 #include "Game.hpp"
 #include "Chatwindow.hpp"
 #include <sstream>
+#include <windows.h>
+#include <process.h>
 
-Player::Player(int aid): id(aid)
+Player::Player(int aid, SOCKET asocket): id(aid), socket(asocket), nthread(&Player::networkthread,this)
 {
-    sf::Thread nthread(&Player::networkthread,this);
     nthread.launch();
+    name="";
+    return;
 }
 
 Player::~Player()
 {
-    //dtor
+
 }
 
 int Player::getId()
 {
     return (id);
-}
-
-void Player::setSocket(SOCKET asocket)
-{
-    socket = asocket;
 }
 
 std::string Player::getName()
@@ -48,10 +46,10 @@ void Player::networkthread()
         if(socket!= INVALID_SOCKET)
         {
             std::string msg = Network::recieveData(socket);
+            std::cout<<"NMESSAGE: "<<msg<<std::endl;
             if(strcmp("",msg.c_str())!=0)
             {
                 std::string key = msg.substr(0,msg.find_first_of("|"));
-                std::cout<<msg<<std::endl;
                 if(strcmp("CLOSE",key.c_str())==0)
                 {
                     std::string nmsg = name+" left the game.";

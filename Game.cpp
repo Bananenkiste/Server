@@ -24,9 +24,9 @@ void Game::run()
         ////////////////////////////////////
         //////////  Update  ////////////////
         ////////////////////////////////////
-        for(int i = players.size()-1;i>=0;--i)
+        for(std::vector<Player*>::iterator it = players.begin();it!=players.end();++it)
         {
-            players.at(i)->update(Time::step());
+            (*it)->update(Time::step());
         }
         ////////////////////////////////////
         ///////  Draw  /////////////////////
@@ -95,16 +95,16 @@ void Game::mainSocket(void* a)
     while(end!=true)
     {
         int newsocket = 0;
-        newsocket = Network::waitForConnection(Network::createSocket(),40000);
-        if(newsocket!=0)
-        {
-            Chatwindow::addText("incoming connection");
-            Player* nplayer = new Player(getID());
-            nplayer->setSocket(newsocket);
-            players.push_back(nplayer);
-        }
+        newsocket = Network::waitForConnection(Network::createTcpSocket(),40000);
+        std::cout<<"test"<<std::endl;
+        Chatwindow::addText("incoming connection");
+        std::cout<<"test"<<std::endl;
+        Player* nplayer = new Player(getID(),newsocket);
+        std::cout<<"test"<<std::endl;
+        Network::sendTcpData(nplayer->getSocket(),"IDENT|");
+        std::cout<<"test"<<std::endl;
+        players.push_back(nplayer);
     }
-
 }
 
 void Game::identify(void* a)
@@ -141,15 +141,15 @@ void Game::sendMessageToPlayers(std::string msg)
 {
     for(int x=players.size()-1;x>=0;--x)
     {
-        Network::sendData(players[x]->getSocket(),"MSG|"+msg);
+        Network::sendTcpData(players[x]->getSocket(),"MSG|"+msg);
     }
 }
 
 void Game::sendCommandToPlayers(std::string cmd)
 {
-    for(int x=players.size()-1;x>=0;--x)
+    for(std::vector<Player*>::iterator it = players.begin();it!=players.end();++it)
     {
-        Network::sendData(players[x]->getSocket(),cmd);
+        Network::sendTcpData((*it)->getSocket(),cmd);
     }
 }
 

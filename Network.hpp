@@ -6,25 +6,40 @@
 #include <windows.h>
 //libws2_32.a einbinden
 
+struct udpMessage
+{
+    std::string ip;
+    int port;
+    std::string msg;
+};
+
 class Network
 {
     public:
         static void init();
-        static SOCKET createSocket();
+        static SOCKET createTcpSocket();
         static SOCKET createUdpSocket();
 
-        static int connectTo(SOCKET Socket,std::string Ip,int port);
-        static SOCKET waitForConnection(SOCKET node,int port);
+        static int connectTo(SOCKET Socket,std::string ip,int port);
+        static SOCKET waitForConnection(SOCKET node, int port);
         static void WaitForClient(SOCKET node, SOCKET s);
+        static void bindSocket(SOCKET node,int port);
+        static void bindSocket(SOCKET node);
 
-        static void sendData(SOCKET node,std::string msg);
+        static void sendTcpData(SOCKET node,std::string msg);
+        static void udpSend(SOCKET node,std::string ip,int port, std::string msg);
+        static void broadcastSend(SOCKET node,int port, std::string msg);
+
         static std::string recieveData(SOCKET node);
+        static udpMessage recieveUdpData(SOCKET node);
+
+        static std::string broadcastRecieve(SOCKET node);
 
         static void closeSocket(SOCKET node);
-        static void broadcastSend(SOCKET node,int port,std::string msg);
-        static std::string broadcastRecieve(SOCKET node);
         static std::string getIP();
-        static void bindSocket(SOCKET node,int port);
+
+
+
 
     protected:
     private:
