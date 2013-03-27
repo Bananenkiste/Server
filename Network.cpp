@@ -208,6 +208,7 @@ std::string Network::broadcastRecieve(SOCKET node)
     else
     {
       buf[rc]='\0';
+      std::cout<<"udp:"<<buf<<std::endl;
       return(buf);
     }
 }
