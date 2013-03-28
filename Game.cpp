@@ -163,6 +163,11 @@ void Game::sendPlayersToPlayer(Player* pl)
     }
 }
 
+std::vector<Player*> getPlayers()
+{
+    return(players);
+}
+
 int Game::getID()
 {
     int id=0;

@@ -20,6 +20,7 @@ class Game
         static void sendMessageToPlayers(std::string msg);
         static void sendCommandToPlayers(std::string msg);
         static void sendPlayersToPlayer(Player* pl);
+        static std::vector<Player*> getPlayers();
 
     private:
 
