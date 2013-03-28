@@ -153,6 +153,16 @@ void Game::sendCommandToPlayers(std::string cmd)
     }
 }
 
+void Game::sendPlayersToPlayer(Player* pl)
+{
+    for(std::vector<Player*>::iterator lst = players.begin();lst!=players.end();++lst)
+    {
+        std::string msg = "PJOIN|"+(*lst)->getId();
+        msg = msg+"|"+(*lst)->getName().c_str();
+        Network::sendTcpData(pl->getSocket(),msg);
+    }
+}
+
 int Game::getID()
 {
     int id=0;

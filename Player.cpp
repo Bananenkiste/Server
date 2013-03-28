@@ -65,8 +65,9 @@ void Player::networkthread()
                     name = msg.substr(msg.find_first_of("|")+1);
                     std::stringstream cid;
                     cid<<id;
-                    std::string nmsg = "PJOIN|"+cid.str() +"|"+name.c_str()+"|";
+                    std::string nmsg = "PJOIN|"+cid.str()+"|"+name.c_str()+"|";
                     Game::sendCommandToPlayers(nmsg);
+                    Game::sendPlayersToPlayer(this);
                     Chatwindow::addText(nmsg);
 
                 }

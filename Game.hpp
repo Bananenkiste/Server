@@ -19,6 +19,7 @@ class Game
         static void removePlayer(Player* player);
         static void sendMessageToPlayers(std::string msg);
         static void sendCommandToPlayers(std::string msg);
+        static void sendPlayersToPlayer(Player* pl);
 
     private:
 
