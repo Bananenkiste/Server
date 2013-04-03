@@ -88,7 +88,7 @@ void Game::init()
     //window->setVerticalSyncEnabled( true );
     Chatwindow::addText("Networktest - Server");
     Chatwindow::addText(Network::getIP().c_str());
-    state = Lobby;
+    state = LOBBY;
 
 
     run();
@@ -116,13 +116,15 @@ void Game::identify(void* a)
 {
     while(end!=true)
     {
-        std::string msg = Network::broadcastRecieve(udp);
+        udpMessage rec = Network::broadcastRecieve(udp);
+        std::string msg = rec.msg.c_str();
         std::string key = msg.substr(0,msg.find_first_of("|"));
         if(strcmp("BBM",key.c_str())==0)
         {
-            if(strcmp("BBM|RQSRV",msg.c_str())==0&&state==Lobby)
+            if(strcmp("BBM|RQSRV",msg.c_str())==0&&state==LOBBY)
             {
-                Network::broadcastSend(udp,40002,"BBM|SRV|Bomberman Server|"+Network::getIP());
+                Network::udpSend(udp,rec.ip,rec.port,"BBM|SRV|Bomberman Server|"+Network::getIP());
+                //Network::broadcastSend(udp,40002,"BBM|SRV|Bomberman Server|"+Network::getIP());
                 Chatwindow::addText("Send indent");
             }
         }
@@ -193,4 +195,31 @@ int Game::getID()
         }
         ++id;
     }
+}
+
+void Game::startGame()
+{
+    if(players.size()>1)
+    {
+        bool start=true;
+        for(std::vector<Player*>::iterator it = players.begin();it!=players.end();++it)
+        {
+            if(!(*it)->getReady())
+            {
+                start=false;
+                sendMessageToPlayers("Lets get ready to rumble !!!");
+            }
+        }
+        if(start)
+        {
+            Chatwindow::addText("StartGame");
+            state=INGAME;
+        }
+    }
+    else
+    {
+        sendMessageToPlayers("Not enough Players");
+        Chatwindow::addText("Not enough Players");
+    }
+
 }

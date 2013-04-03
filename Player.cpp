@@ -87,9 +87,18 @@ void Player::networkthread()
                     cid<<this->id;
                     std::string nmsg = "PACT|RDY|"+cid.str();
                     Game::sendCommandToPlayers(nmsg);
+                    if(ready)
+                    {
+                        Game::startGame();
+                    }
 
                 }
             }
         }
     }
+}
+
+bool Player::getReady()
+{
+    return(ready);
 }

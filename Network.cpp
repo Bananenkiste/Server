@@ -211,23 +211,28 @@ void Network::udpSend(SOCKET node,std::string ip,int port, std::string msg)
     sendto(node,msg.c_str(),strlen(msg.c_str()),0,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
 }
 
-std::string Network::broadcastRecieve(SOCKET node)
+udpMessage Network::broadcastRecieve(SOCKET node)
 {
-    SOCKADDR_IN remoteAddr;
-    int remoteAddrLen=sizeof(SOCKADDR_IN);
+    sockaddr_in remoteAddr;
+    int remoteAddrLen=sizeof(remoteAddr);
 
+    udpMessage msg;
     char buf[256];
     int rc;
     rc=recvfrom(node,buf,256,0,(SOCKADDR*)&remoteAddr,&remoteAddrLen);
     if(rc==SOCKET_ERROR)
     {
-      std::cout<<"Fehler: recvfrom, fehler code:"<<WSAGetLastError()<<std::endl;
-      return("");
+        std::cout<<"Fehler: recvfrom, fehler code:"<<WSAGetLastError()<<std::endl;
+        return(msg);
     }
     else
     {
-      buf[rc]='\0';
-      return(buf);
+        buf[rc]='\0';
+        msg.msg = buf;
+        msg.ip = inet_ntoa(remoteAddr.sin_addr);
+        msg.port = ntohs(remoteAddr.sin_port);
+        std::cout<<msg.ip<<"|"<<msg.port<<std::endl;
+        return(msg);
     }
 }
 

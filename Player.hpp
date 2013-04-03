@@ -19,6 +19,8 @@ class Player
         void setSocket(SOCKET asocket);
         SOCKET getSocket();
         void update(float step);
+        bool getReady();
+
     private:
         void networkthread();
         int id;

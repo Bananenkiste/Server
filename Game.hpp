@@ -13,7 +13,7 @@ class Chatwindow;
 class Game
 {
     public:
-        enum State{Lobby,Ingame};
+        enum State{LOBBY,INGAME};
 
         static void init();
         static void run();
@@ -23,6 +23,7 @@ class Game
         static void sendCommandToPlayers(std::string msg);
         static void sendPlayersToPlayer(Player* pl);
         static std::vector<Player*> getPlayers();
+        static void startGame();
 
     private:
 

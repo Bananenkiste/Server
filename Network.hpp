@@ -32,8 +32,7 @@ class Network
 
         static std::string recieveData(SOCKET node);
         static udpMessage recieveUdpData(SOCKET node);
-
-        static std::string broadcastRecieve(SOCKET node);
+        static udpMessage broadcastRecieve(SOCKET node);
 
         static void closeSocket(SOCKET node);
         static std::string getIP();
