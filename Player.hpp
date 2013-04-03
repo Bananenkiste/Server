@@ -26,6 +26,7 @@ class Player
         glm::mat4 position;
         SOCKET socket;
         sf::Thread nthread;
+        bool ready;
 };
 
 #endif // PLAYER_H

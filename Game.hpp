@@ -13,6 +13,8 @@ class Chatwindow;
 class Game
 {
     public:
+        enum State{Lobby,Ingame};
+
         static void init();
         static void run();
 
@@ -29,6 +31,8 @@ class Game
         static int getID();
         static void windowControl();
         static void draw();
+
+        static int state;
 
         static std::vector<Player*> players;
         static int coresocket;

@@ -10,6 +10,7 @@ Player::Player(int aid, SOCKET asocket): id(aid), socket(asocket), nthread(&Play
 {
     nthread.launch();
     name="";
+    ready=false;
     return;
 }
 
@@ -78,6 +79,15 @@ void Player::networkthread()
                     std::cout<<nmsg<<std::endl;
                     Game::sendMessageToPlayers(nmsg);
                     Chatwindow::addText(nmsg);
+                }
+                if(strcmp("RDY",key.c_str())==0)
+                {
+                    ready=!ready;
+                    std::stringstream cid;
+                    cid<<this->id;
+                    std::string nmsg = "PACT|RDY|"+cid.str();
+                    Game::sendCommandToPlayers(nmsg);
+
                 }
             }
         }

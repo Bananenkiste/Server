@@ -11,6 +11,7 @@
 #include "Time.hpp"
 
 bool Game::end;
+int Game::state;
 std::vector<Player*> Game::players;
 int Game::coresocket;
 sf::RenderWindow* Game::window;
@@ -87,7 +88,11 @@ void Game::init()
     //window->setVerticalSyncEnabled( true );
     Chatwindow::addText("Networktest - Server");
     Chatwindow::addText(Network::getIP().c_str());
+    state = Lobby;
+
+
     run();
+
 }
 
 void Game::mainSocket(void* a)
@@ -115,7 +120,7 @@ void Game::identify(void* a)
         std::string key = msg.substr(0,msg.find_first_of("|"));
         if(strcmp("BBM",key.c_str())==0)
         {
-            if(strcmp("BBM|RQSRV",msg.c_str())==0)
+            if(strcmp("BBM|RQSRV",msg.c_str())==0&&state==Lobby)
             {
                 Network::broadcastSend(udp,40002,"BBM|SRV|Bomberman Server|"+Network::getIP());
                 Chatwindow::addText("Send indent");
@@ -163,7 +168,7 @@ void Game::sendPlayersToPlayer(Player* pl)
     }
 }
 
-std::vector<Player*> getPlayers()
+std::vector<Player*> Game::getPlayers()
 {
     return(players);
 }
