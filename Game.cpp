@@ -101,13 +101,11 @@ void Game::mainSocket(void* a)
     {
         int newsocket = 0;
         newsocket = Network::waitForConnection(Network::createTcpSocket(),40000);
-        std::cout<<"test"<<std::endl;
         Chatwindow::addText("incoming connection");
-        std::cout<<"test"<<std::endl;
-        Player* nplayer = new Player(getID(),newsocket);
-        std::cout<<"test"<<std::endl;
+        int x = getID();
+        std::cout<<"ID:"<<x<<std::endl;
+        Player* nplayer = new Player(x,newsocket);
         Network::sendTcpData(nplayer->getSocket(),"IDENT|");
-        std::cout<<"test"<<std::endl;
         players.push_back(nplayer);
     }
 }
@@ -164,7 +162,9 @@ void Game::sendPlayersToPlayer(Player* pl)
 {
     for(std::vector<Player*>::iterator lst = players.begin();lst!=players.end();++lst)
     {
-        std::string msg = "PJOIN|"+(*lst)->getId();
+        std::stringstream stream;
+        stream<<(*lst)->getId();
+        std::string msg = "PJOIN|"+stream.str();
         msg = msg+"|"+(*lst)->getName().c_str();
         Network::sendTcpData(pl->getSocket(),msg);
     }
@@ -184,7 +184,7 @@ int Game::getID()
         valid = true;
         for(std::vector<Player*>::iterator it = players.begin();it!=players.end();++it)
         {
-            if(id=(*it)->getId())
+            if(id==(*it)->getId())
             {
                 valid = false;
             }

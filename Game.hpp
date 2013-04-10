@@ -6,6 +6,7 @@
 #include<sfml/system.hpp>
 
 #include <vector>
+#include <sstream>
 
 class Player;
 class Chatwindow;

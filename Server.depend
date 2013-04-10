@@ -167,7 +167,7 @@
 	<sfml/window.hpp>
 	<sfml/graphics.hpp>
 
-1365016102 source:c:\users\bananenkiste\documents\github\server\game.cpp
+1365084722 source:c:\users\bananenkiste\documents\github\server\game.cpp
 	<iostream>
 	<winsock2.h>
 	<windows.h>
@@ -178,11 +178,12 @@
 	"Chatwindow.hpp"
 	"Time.hpp"
 
-1365009373 c:\users\bananenkiste\documents\github\server\game.hpp
+1365084757 c:\users\bananenkiste\documents\github\server\game.hpp
 	<sfml/window.hpp>
 	<sfml/graphics.hpp>
 	<sfml/system.hpp>
 	<vector>
+	<sstream>
 
 1365016209 c:\users\bananenkiste\documents\github\server\network.hpp
 	<iostream>
@@ -213,7 +214,7 @@
 1363711116 source:c:\users\bananenkiste\documents\github\server\message.cpp
 	"Message.hpp"
 
-1365009571 source:c:\users\bananenkiste\documents\github\server\player.cpp
+1365084580 source:c:\users\bananenkiste\documents\github\server\player.cpp
 	"Player.hpp"
 	"Network.hpp"
 	"Game.hpp"
@@ -225,6 +226,6 @@
 1363711116 source:c:\users\bananenkiste\documents\github\server\time.cpp
 	"Time.hpp"
 
-1365017660 source:c:\users\bananenkiste\documents\github\server\network.cpp
+1365018934 source:c:\users\bananenkiste\documents\github\server\network.cpp
 	"Network.hpp"
 
