@@ -163,9 +163,9 @@ void Game::removePlayer(Player* player)
 
 void Game::sendMessageToPlayers(std::string msg)
 {
-    for(int x=players.size()-1;x>=0;--x)
+    for(std::vector<Player*>::iterator it = players.begin();it!=players.end();++it)
     {
-        Network::sendTcpData(players[x]->getSocket(),"MSG|"+msg);
+        Network::sendTcpData((*it)->getSocket(),"MSG|"+msg);
     }
 }
 
@@ -218,7 +218,7 @@ int Game::getID()
 
 void Game::startGame()
 {
-    if(players.size()>=1)
+    if(players.size()>0)
     {
         bool start=true;
         for(std::vector<Player*>::iterator it = players.begin();it!=players.end();++it)
@@ -234,8 +234,7 @@ void Game::startGame()
             //sendMessageToPlayers("Game start");
             Chatwindow::addText("StartGame");
             Game::gamemech = new GameMechanics(&players);
-            state=INGAME;
-
+            //state=INGAME;
         }
     }
     else

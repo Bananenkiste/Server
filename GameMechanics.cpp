@@ -9,10 +9,21 @@ GameMechanics::GameMechanics(std::vector<Player*>*playerlist)
 {
     players=playerlist;
     state=PREGAME;
-    level = new Level("something");
-    //std::cout<<level->getLevelString().size()<<std::endl;
-    //Game::sendCommandToPlayers("RQST|MDE|5|"+level->getLevelString());
-    //std::cout<<level->getLevelString()<<std::endl;
+    /*
+    000000000000000
+    020202020202020
+    000000000000000
+    020202020202020
+    000000000000000
+    020202020202020
+    000000000000000
+    020202020202020
+    000000000000000
+    */
+
+
+    level = new Level("000000000000000020202020202020000000000000000020202020202020000000000000000020202020202020000000000000000020202020202020000000000000000");
+    Game::sendCommandToPlayers("RQST|MDE|6|"+level->getLevelString());
 }
 
 void GameMechanics::handleInput(Player* player,std::string input)
