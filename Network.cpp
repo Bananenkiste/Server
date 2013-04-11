@@ -123,10 +123,18 @@ std::string Network::recieveData(SOCKET node)
 {
         char buffer[256];
         int rc;
+        std::string msg;
         rc=recv(node,buffer,256,0);
-        buffer[rc]=0;
-        std::cout<<"N-Message"<<buffer<<std::endl;
-        std::string msg = buffer;
+        if(rc<=0)
+        {
+            strcpy(buffer,"CLOSE");
+        }
+        else if (rc>0)
+        {
+            buffer[rc]=0;
+        }
+        msg = buffer;
+        std::cout<<"N-Message"<<msg<<std::endl;
         return msg;
 }
 

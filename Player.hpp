@@ -20,6 +20,7 @@ class Player
         SOCKET getSocket();
         void update(float step);
         bool getReady();
+        int getState();
 
     private:
         void networkthread();
@@ -29,6 +30,8 @@ class Player
         SOCKET socket;
         sf::Thread nthread;
         bool ready;
+        int state;
+
 };
 
 #endif // PLAYER_H

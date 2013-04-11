@@ -92,7 +92,13 @@ void Player::networkthread()
                     {
                         Game::startGame();
                     }
-
+                }
+                if(strcmp("INTF",key.c_str())==0)
+                {
+                    std::stringstream intf;
+                    intf<<msg.substr(msg.find_first_of("|")+1);
+                    intf>>state;
+                    std::cout<<"awesome fucking state: "<<state<<"string manipulation: "<< intf.str()<<std::endl;
                 }
             }
         }
@@ -103,3 +109,11 @@ bool Player::getReady()
 {
     return(ready);
 }
+
+int Player::getState()
+{
+    return(state);
+}
+
+
+

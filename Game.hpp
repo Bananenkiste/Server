@@ -10,6 +10,7 @@
 
 class Player;
 class Chatwindow;
+class GameMechanics;
 
 class Game
 {
@@ -25,6 +26,7 @@ class Game
         static void sendPlayersToPlayer(Player* pl);
         static std::vector<Player*> getPlayers();
         static void startGame();
+        static void changeState();
 
     private:
 
@@ -41,6 +43,7 @@ class Game
         static int udp;
         static bool end;
         static sf::RenderWindow* window;
+        static GameMechanics* gamemech;
 };
 
 #endif // GAME_H

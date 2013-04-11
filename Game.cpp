@@ -9,6 +9,8 @@
 #include "Player.hpp"
 #include "Chatwindow.hpp"
 #include "Time.hpp"
+#include "GameMechanics.hpp"
+
 
 bool Game::end;
 int Game::state;
@@ -16,6 +18,7 @@ std::vector<Player*> Game::players;
 int Game::coresocket;
 sf::RenderWindow* Game::window;
 int Game::udp;
+GameMechanics* Game::gamemech;
 
 void Game::run()
 {
@@ -25,10 +28,23 @@ void Game::run()
         ////////////////////////////////////
         //////////  Update  ////////////////
         ////////////////////////////////////
-        for(std::vector<Player*>::iterator it = players.begin();it!=players.end();++it)
+        switch(state)
         {
-            (*it)->update(Time::step());
+            case LOBBY:
+            {
+                for(std::vector<Player*>::iterator it = players.begin();it!=players.end();++it)
+                {
+                    (*it)->update(Time::step());
+                }
+                break;
+            }
+            case INGAME:
+            {
+                Game::gamemech->update(Time::step());
+            }
+
         }
+
         ////////////////////////////////////
         ///////  Draw  /////////////////////
         ////////////////////////////////////
@@ -42,11 +58,14 @@ void Game::run()
 void Game::draw()
 {
     window->clear();
-    window->pushGLStates();
+
+    if(state==INGAME)
+    {
+        //draw level
+    }
 
     Chatwindow::draw(window);
 
-    window->popGLStates();
     window->display();
 }
 
@@ -199,7 +218,7 @@ int Game::getID()
 
 void Game::startGame()
 {
-    if(players.size()>1)
+    if(players.size()>=1)
     {
         bool start=true;
         for(std::vector<Player*>::iterator it = players.begin();it!=players.end();++it)
@@ -212,8 +231,11 @@ void Game::startGame()
         }
         if(start)
         {
+            //sendMessageToPlayers("Game start");
             Chatwindow::addText("StartGame");
+            Game::gamemech = new GameMechanics(&players);
             state=INGAME;
+
         }
     }
     else
@@ -221,5 +243,9 @@ void Game::startGame()
         sendMessageToPlayers("Not enough Players");
         Chatwindow::addText("Not enough Players");
     }
+}
 
+void Game::changeState()
+{
+    state=LOBBY;
 }
