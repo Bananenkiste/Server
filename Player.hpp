@@ -21,12 +21,19 @@ class Player
         void update(float step);
         bool getReady();
         int getState();
+        sf::Vector2f getPosition();
+        void setPosition(sf::Vector2f npos);
+
+        sf::Vector2f getDir();
+        void setDir(sf::Vector2f ndir);
 
     private:
         void networkthread();
         int id;
         std::string name;
-        glm::mat4 position;
+        sf::Vector2f position;
+        sf::Vector2f dir;
+        float speed;
         SOCKET socket;
         sf::Thread nthread;
         bool ready;

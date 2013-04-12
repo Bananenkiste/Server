@@ -2,6 +2,7 @@
 #include "Network.hpp"
 #include "Game.hpp"
 #include "Chatwindow.hpp"
+#include "GameMechanics.hpp"
 #include <sstream>
 #include <windows.h>
 #include <process.h>
@@ -47,7 +48,6 @@ void Player::networkthread()
         if(socket!= INVALID_SOCKET)
         {
             std::string msg = Network::recieveData(socket);
-            std::cout<<"NMESSAGE: "<<msg<<std::endl;
             if(strcmp("",msg.c_str())!=0)
             {
                 std::string key = msg.substr(0,msg.find_first_of("|"));
@@ -100,6 +100,18 @@ void Player::networkthread()
                     intf>>state;
                     std::cout<<"awesome fucking state: "<<state<<"string manipulation: "<< intf.str()<<std::endl;
                 }
+                if(strcmp("MOV",key.c_str())==0)
+                {
+                    msg=msg.substr(msg.find_first_of("|")+1);
+                    GameMechanics::handleInput(this,msg);
+                    float x=position.x,y=position.y;
+                    std::stringstream cid,mov_x,mov_y;
+                    cid<<id;
+                    mov_x<<position.x;
+                    mov_y<<position.y;
+
+                    Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+msg);
+                }
             }
         }
     }
@@ -115,5 +127,24 @@ int Player::getState()
     return(state);
 }
 
+sf::Vector2f Player::getPosition()
+{
+    return(position);
+}
+
+void Player::setPosition(sf::Vector2f npos)
+{
+    position=npos;
+}
+
+sf::Vector2f Player::getDir()
+{
+    return(dir);
+}
+
+void Player::setDir(sf::Vector2f ndir)
+{
+    dir=ndir;
+}
 
 

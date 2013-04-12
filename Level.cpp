@@ -1,6 +1,6 @@
 #include "Level.hpp"
 
-#include "TextureBuffer.hpp"
+//#include "TextureBuffer.hpp"
 
 
 Level::Level(std::string lvl)
@@ -35,13 +35,13 @@ Level::Level(std::string lvl)
                     case '3':
                     {
                         tile="0";
-                        spawn.push_back(sf::Vector2i(x,y));
+                        spawn.push_back(sf::Vector2f(30+(x*30),30+(y*30)));
                         break;
                     }
                 }
                 ++i;
             }
-            leveldata[x][y]=TextureBuffer::LoadTexture(tile,false,(x*30)+30,(y*30)+30);
+            //leveldata[x][y]=TextureBuffer::LoadTexture(tile,false,(x*30)+30,(y*30)+30);
         }
     }
 }
@@ -66,11 +66,16 @@ void Level::draw(sf::RenderWindow* window)
     }
 }
 
-sf::Vector2i Level::getSpawn(int id)
+sf::Vector2f Level::getSpawn(int id)
 {
     if(id<spawn.size())
     {
         return(spawn[id]);
     }
+}
+
+int Level::getTile(int x, int y)
+{
+    //return(leveldata[x][y]);
 }
 

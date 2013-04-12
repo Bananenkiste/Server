@@ -1,6 +1,8 @@
 #ifndef GAMEMECHANICS_HPP
 #define GAMEMECHANICS_HPP
 
+
+#include <sfml/system.hpp>
 #include <iostream>
 #include <vector>
 

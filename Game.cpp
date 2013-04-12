@@ -30,14 +30,6 @@ void Game::run()
         ////////////////////////////////////
         switch(state)
         {
-            case LOBBY:
-            {
-                for(std::vector<Player*>::iterator it = players.begin();it!=players.end();++it)
-                {
-                    (*it)->update(Time::step());
-                }
-                break;
-            }
             case INGAME:
             {
                 Game::gamemech->update(Time::step());
