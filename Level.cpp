@@ -1,7 +1,7 @@
 #include "Level.hpp"
 
 //#include "TextureBuffer.hpp"
-
+#include "Tile.hpp"
 
 Level::Level(std::string lvl)
 {
@@ -41,7 +41,7 @@ Level::Level(std::string lvl)
                 }
                 ++i;
             }
-            //leveldata[x][y]=TextureBuffer::LoadTexture(tile,false,(x*30)+30,(y*30)+30);
+            leveldata[x][y]=new Tile(tile,(x*30)+30,(y*30)+30);
         }
     }
 }
@@ -61,7 +61,7 @@ void Level::draw(sf::RenderWindow* window)
     {
         for(int x=0;x<15;++x)
         {
-            window->draw(*leveldata[x][y]);
+            leveldata[x][y]->draw(window);
         }
     }
 }
@@ -76,6 +76,13 @@ sf::Vector2f Level::getSpawn(int id)
 
 int Level::getTile(int x, int y)
 {
-    //return(leveldata[x][y]);
+    return(leveldata[x][y]->getTile());
+}
+
+void Level::setTile(int x, int y, int value)
+{
+    std::stringstream stream;
+    stream<<value;
+    leveldata[x][y]->setTexture(stream.str());
 }
 

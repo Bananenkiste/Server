@@ -6,8 +6,12 @@
 #include <iostream>
 #include <vector>
 
+#include <sfml/graphics.hpp>
+#include <sfml/window.hpp>
+
 class Player;
 class Level;
+class Bomb;
 
 class GameMechanics
 {
@@ -18,12 +22,17 @@ class GameMechanics
         GameMechanics(std::vector<Player*>*playerlist);
         static void handleInput(Player* player,std::string input);
         void update(float deltatime);
-        void draw();
+        void draw(sf::RenderWindow* window);
+        static bool collisionCheck(Player* players,int pdir);
+        static void placeBomb(int x,int y);
+        static void explodeBomb(Bomb* bomb,int strenght);
     protected:
     private:
         std::vector<Player*>*players;
-        Level* level;
+        static std::vector<Bomb*> bombs;
+        static Level* level;
         int state;
+
 };
 
 #endif // GAMEMECHANICS_HPP

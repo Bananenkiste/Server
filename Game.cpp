@@ -24,6 +24,7 @@ void Game::run()
 {
     while(Game::end != true)
     {
+        Time::update();
         windowControl();
         ////////////////////////////////////
         //////////  Update  ////////////////
@@ -53,7 +54,7 @@ void Game::draw()
 
     if(state==INGAME)
     {
-        //draw level
+        gamemech->draw(window);
     }
 
     Chatwindow::draw(window);
@@ -226,7 +227,7 @@ void Game::startGame()
             //sendMessageToPlayers("Game start");
             Chatwindow::addText("StartGame");
             Game::gamemech = new GameMechanics(&players);
-            //state=INGAME;
+            state=INGAME;
         }
     }
     else

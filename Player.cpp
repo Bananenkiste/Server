@@ -3,6 +3,7 @@
 #include "Game.hpp"
 #include "Chatwindow.hpp"
 #include "GameMechanics.hpp"
+#include "TextureBuffer.hpp"
 #include <sstream>
 #include <windows.h>
 #include <process.h>
@@ -12,7 +13,12 @@ Player::Player(int aid, SOCKET asocket): id(aid), socket(asocket), nthread(&Play
     nthread.launch();
     name="";
     ready=false;
-    return;
+    dir=0;
+    tempdir=0;
+    speed=50;
+    std::stringstream stream;
+    stream<<id;
+    pawn = TextureBuffer::LoadTexture("p"+stream.str(),true);
 }
 
 Player::~Player()
@@ -39,6 +45,113 @@ SOCKET Player::getSocket()
 void Player::update(float step)
 {
 
+    if(dir==0&&tempdir!=0)
+    {
+        std::cout<<"new dir"<<std::endl;
+        if(!GameMechanics::collisionCheck(this,tempdir))
+        {
+            dir=tempdir;
+            target=position;
+            if(tempdir&1)
+            {
+                target-=sf::Vector2f(0,30);
+            }
+            if(tempdir&2)
+            {
+                target+=sf::Vector2f(0,30);
+            }
+            if(tempdir&4)
+            {
+                target-=sf::Vector2f(30,0);
+            }
+            if(tempdir&8)
+            {
+                target+=sf::Vector2f(30,0);
+            }
+            std::stringstream cid,mov_x,mov_y,cdir;
+            cid<<id;
+            mov_x<<position.x;
+            mov_y<<position.y;
+            cdir<<dir;
+            Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+cdir.str());
+        }
+    }
+    if(dir!=0)
+    {
+        sf::Vector2f mov;
+        if(dir&1)
+        {
+            mov-=sf::Vector2f(0,1);
+        }
+        if(dir&2)
+        {
+            mov+=sf::Vector2f(0,1);
+        }
+        if(dir&4)
+        {
+            mov-=sf::Vector2f(1,0);
+        }
+        if(dir&8)
+        {
+            mov+=sf::Vector2f(1,0);
+        }
+        position.x+=(mov.x*speed)*step;
+        position.y+=(mov.y*speed)*step;
+
+        sf::Vector2f dif = position-target;
+        dif.x*=dif.x;
+        dif.y*=dif.y;
+        if(dif.x<=4&&dif.y<=4)
+        {
+            position=target;
+            if(!GameMechanics::collisionCheck(this,tempdir))
+            {
+                if(tempdir&1)
+                {
+                    target-=sf::Vector2f(0,30);
+                }
+                if(tempdir&2)
+                {
+                    target+=sf::Vector2f(0,30);
+                }
+                if(tempdir&4)
+                {
+                    target-=sf::Vector2f(30,0);
+                }
+                if(tempdir&8)
+                {
+                    target+=sf::Vector2f(30,0);
+                }
+                if(dir!=tempdir)
+                {
+                    dir=tempdir;
+                    std::stringstream cid,mov_x,mov_y,cdir;
+                    cid<<id;
+                    mov_x<<position.x;
+                    mov_y<<position.y;
+                    cdir<<dir;
+                    Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+cdir.str());
+                }
+            }
+            else
+            {
+                dir=0;
+                std::stringstream cid,mov_x,mov_y,cdir;
+                cid<<id;
+                mov_x<<position.x;
+                mov_y<<position.y;
+                cdir<<dir;
+                Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+cdir.str());
+            }
+        }
+    }
+
+}
+
+void Player::draw(sf::RenderWindow* window)
+{
+    pawn->setPosition(position);
+    window->draw(*pawn);
 }
 
 void Player::networkthread()
@@ -68,7 +181,7 @@ void Player::networkthread()
                     cid<<this->id;
 
                     std::string nmsg = "PJOIN|"+cid.str()+"|"+name.c_str()+"|";
-                    //Game::sendCommandToPlayers(nmsg);
+                    Game::sendCommandToPlayers(nmsg);
                     Game::sendPlayersToPlayer(this);
                     Chatwindow::addText(nmsg);
 
@@ -104,13 +217,12 @@ void Player::networkthread()
                 {
                     msg=msg.substr(msg.find_first_of("|")+1);
                     GameMechanics::handleInput(this,msg);
-                    float x=position.x,y=position.y;
-                    std::stringstream cid,mov_x,mov_y;
+                    /*std::stringstream cid,mov_x,mov_y,cdir;
                     cid<<id;
                     mov_x<<position.x;
                     mov_y<<position.y;
-
-                    Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+msg);
+                    cdir<<dir;
+                    Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+cdir.str());*/
                 }
             }
         }
@@ -137,14 +249,15 @@ void Player::setPosition(sf::Vector2f npos)
     position=npos;
 }
 
-sf::Vector2f Player::getDir()
+int Player::getDir()
 {
     return(dir);
 }
 
-void Player::setDir(sf::Vector2f ndir)
+void Player::setDir(int ndir)
 {
-    dir=ndir;
+    tempdir=ndir;
+    //dir=ndir;
 }
 
 

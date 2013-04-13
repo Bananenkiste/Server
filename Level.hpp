@@ -8,6 +8,7 @@
 #include <sfml/window.hpp>
 #include <sfml/system.hpp>
 
+class Tile;
 
 class Level
 {
@@ -19,11 +20,12 @@ class Level
         void draw(sf::RenderWindow* window);
         sf::Vector2f getSpawn(int id);
         int getTile(int x, int y);
+        void setTile(int x,int y, int value);
 
     private:
         std::vector<sf::Vector2f> spawn;
         std::string levelstring;
-        sf::Sprite* leveldata[16][10];
+        Tile* leveldata[16][10];
 };
 
 #endif // LEVEL_HPP

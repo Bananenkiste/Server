@@ -38,6 +38,10 @@
 			<Add library="sfml-window" />
 			<Add library="sfml-system" />
 		</Linker>
+		<Unit filename="Animation.cpp" />
+		<Unit filename="Animation.hpp" />
+		<Unit filename="Bomb.cpp" />
+		<Unit filename="Bomb.hpp" />
 		<Unit filename="Chatwindow.cpp" />
 		<Unit filename="Chatwindow.hpp" />
 		<Unit filename="Game.cpp" />
@@ -54,6 +58,10 @@
 		<Unit filename="Network.hpp" />
 		<Unit filename="Player.cpp" />
 		<Unit filename="Player.hpp" />
+		<Unit filename="TextureBuffer.cpp" />
+		<Unit filename="TextureBuffer.hpp" />
+		<Unit filename="Tile.cpp" />
+		<Unit filename="Tile.hpp" />
 		<Unit filename="Time.cpp" />
 		<Unit filename="Time.hpp" />
 		<Unit filename="main.cpp" />
