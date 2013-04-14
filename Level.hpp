@@ -21,6 +21,7 @@ class Level
         sf::Vector2f getSpawn(int id);
         int getTile(int x, int y);
         void setTile(int x,int y, int value);
+        void setType(int x,int y,int type);
 
     private:
         std::vector<sf::Vector2f> spawn;

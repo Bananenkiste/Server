@@ -19,6 +19,7 @@ Player::Player(int aid, SOCKET asocket): id(aid), socket(asocket), nthread(&Play
     std::stringstream stream;
     stream<<id;
     pawn = TextureBuffer::LoadTexture("p"+stream.str(),true);
+    alive=true;
 }
 
 Player::~Player()
@@ -44,6 +45,10 @@ SOCKET Player::getSocket()
 
 void Player::update(float step)
 {
+    if(!alive)
+    {
+        return;
+    }
 
     if(dir==0&&tempdir!=0)
     {
@@ -150,8 +155,11 @@ void Player::update(float step)
 
 void Player::draw(sf::RenderWindow* window)
 {
-    pawn->setPosition(position);
-    window->draw(*pawn);
+    if(alive)
+    {
+        pawn->setPosition(position);
+        window->draw(*pawn);
+    }
 }
 
 void Player::networkthread()
@@ -215,14 +223,11 @@ void Player::networkthread()
                 }
                 if(strcmp("MOV",key.c_str())==0)
                 {
-                    msg=msg.substr(msg.find_first_of("|")+1);
-                    GameMechanics::handleInput(this,msg);
-                    /*std::stringstream cid,mov_x,mov_y,cdir;
-                    cid<<id;
-                    mov_x<<position.x;
-                    mov_y<<position.y;
-                    cdir<<dir;
-                    Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+cdir.str());*/
+                    if(alive)
+                    {
+                        msg=msg.substr(msg.find_first_of("|")+1);
+                        GameMechanics::handleInput(this,msg);
+                    }
                 }
             }
         }
@@ -257,7 +262,10 @@ int Player::getDir()
 void Player::setDir(int ndir)
 {
     tempdir=ndir;
-    //dir=ndir;
 }
 
+void Player::setAlive(bool state)
+{
+    alive=state;
+}
 

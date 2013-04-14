@@ -24,6 +24,7 @@ void Bomb::update(float step)
     {
         std::cout<<"EXPLOSIOOOON !"<<std::endl;
         GameMechanics::explodeBomb(this,strength);
+        timer=9000;
         return;
     }
 }

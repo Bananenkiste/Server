@@ -5,6 +5,7 @@
 
 Tile::Tile(std::string name,float x, float y)
 {
+    txtr=name;
     std::stringstream stream;
     stream<<name;
     stream>>type;
@@ -19,14 +20,24 @@ int Tile::getTile()
 {
     return(type);
 }
+void Tile::setTile(int state)
+{
+    type=state;
+}
 
 void Tile::draw(sf::RenderWindow* window)
 {
     window->draw(*sprite);
 }
 
+std::string Tile::getTxtr()
+{
+
+}
+
 void Tile::setTexture(std::string Texturename)
 {
+    txtr=Texturename;
     std::stringstream stream;
     stream<<Texturename;
     stream>>type;

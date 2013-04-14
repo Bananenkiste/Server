@@ -28,8 +28,8 @@ class GameMechanics
         static void explodeBomb(Bomb* bomb,int strenght);
     protected:
     private:
-        std::vector<Player*>*players;
-        static std::vector<Bomb*> bombs;
+        static std::vector<Player*>*players;
+        static std::vector<Bomb*>* bombs;
         static Level* level;
         int state;
 

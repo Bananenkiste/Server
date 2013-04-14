@@ -10,6 +10,7 @@
 #include "Chatwindow.hpp"
 #include "Time.hpp"
 #include "GameMechanics.hpp"
+#include "TextureBuffer.hpp"
 
 
 bool Game::end;
@@ -54,7 +55,7 @@ void Game::draw()
 
     if(state==INGAME)
     {
-        gamemech->draw(window);
+        //gamemech->draw(window);
     }
 
     Chatwindow::draw(window);
@@ -86,6 +87,19 @@ void Game::init()
         std::cout << "Winsock 2 konnte nicht gestartet werden! Error #" << result << std::endl;
         return;
     }
+    //Load all graphics
+    TextureBuffer::LoadTexture("0",false);
+    TextureBuffer::LoadTexture("1",false);
+    TextureBuffer::LoadTexture("2",false);
+    TextureBuffer::LoadTexture("p0",false);
+    TextureBuffer::LoadTexture("p1",false);
+    TextureBuffer::LoadTexture("p2",false);
+    TextureBuffer::LoadTexture("p3",false);
+    TextureBuffer::LoadTexture("p4",false);
+    TextureBuffer::LoadTexture("p5",false);
+    TextureBuffer::LoadTexture("p6",false);
+    TextureBuffer::LoadTexture("p7",false);
+    TextureBuffer::LoadTexture("bomb",false);
     //Real Program
     Game::end = false;
     Game::udp = Network::createUdpSocket();

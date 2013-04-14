@@ -29,7 +29,7 @@ class Player
         int getState();
         sf::Vector2f getPosition();
         void setPosition(sf::Vector2f npos);
-
+        void setAlive(bool state);
         int getDir();
         void setDir(int ndir);
 
@@ -48,7 +48,7 @@ class Player
         sf::Thread nthread;
         bool ready;
         int state;
-
+        bool alive;
 };
 
 #endif // PLAYER_H

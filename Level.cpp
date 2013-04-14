@@ -83,6 +83,12 @@ void Level::setTile(int x, int y, int value)
 {
     std::stringstream stream;
     stream<<value;
+    std::string t = stream.str();
+    levelstring[(x*9)+y]=t[1];
     leveldata[x][y]->setTexture(stream.str());
+}
+void Level::setType(int x, int y,int type)
+{
+    leveldata[x][y]->setTile(type);
 }
 

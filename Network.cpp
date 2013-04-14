@@ -1,6 +1,6 @@
 #include "Network.hpp"
 
-
+#include "Encryption.hpp"
 //Global Variables
 bool Network::i;
 FD_SET Network::fdset;
@@ -116,6 +116,7 @@ void Network::WaitForClient(SOCKET node, SOCKET s)
 void Network::sendTcpData(SOCKET node,std::string msg)
 {
     std::cout<<"out:"<<msg<<std::endl;
+    msg=Encryption::encrypt(msg);
     send(node,msg.c_str(),strlen(msg.c_str()),0);
 }
 
@@ -128,13 +129,15 @@ std::string Network::recieveData(SOCKET node)
         if(rc<=0)
         {
             strcpy(buffer,"CLOSE");
+            return(buffer);
         }
         else if (rc>0)
         {
             buffer[rc]=0;
         }
-        msg = buffer;
+        msg = Encryption::decrypt(buffer);
         std::cout<<"N-Message"<<msg<<std::endl;
+
         return msg;
 }
 
@@ -148,7 +151,7 @@ udpMessage Network::recieveUdpData(SOCKET node)
         buffer[rc]=0;
         udpMessage msg;
         msg.ip = inet_ntoa(sender.sin_addr);
-        msg.msg=buffer;
+        msg.msg=Encryption::decrypt(buffer);
         msg.port=sender.sin_port;
         return msg;
 }
@@ -205,6 +208,7 @@ void Network::broadcastSend(SOCKET node,int port, std::string msg)
     ip.append("255");
     addr.sin_addr.s_addr=inet_addr(ip.c_str());
 
+    msg=Encryption::encrypt(msg);
     sendto(node,msg.c_str(),strlen(msg.c_str()),0,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
 }
 
@@ -215,7 +219,8 @@ void Network::udpSend(SOCKET node,std::string ip,int port, std::string msg)
     addr.sin_port=htons(port);
     addr.sin_addr.s_addr = INADDR_ANY;
     addr.sin_addr.s_addr=inet_addr(ip.c_str());
-
+    msg = Encryption::encrypt(msg);
+    std::cout<<msg<<std::endl;
     sendto(node,msg.c_str(),strlen(msg.c_str()),0,(SOCKADDR*)&addr,sizeof(SOCKADDR_IN));
 }
 
@@ -236,7 +241,7 @@ udpMessage Network::broadcastRecieve(SOCKET node)
     else
     {
         buf[rc]='\0';
-        msg.msg = buf;
+        msg.msg = Encryption::decrypt(buf);
         msg.ip = inet_ntoa(remoteAddr.sin_addr);
         msg.port = ntohs(remoteAddr.sin_port);
         std::cout<<msg.ip<<"|"<<msg.port<<std::endl;
