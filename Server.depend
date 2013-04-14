@@ -167,7 +167,7 @@
 	<sfml/window.hpp>
 	<sfml/graphics.hpp>
 
-1365877329 source:c:\users\bananenkiste\documents\github\server\game.cpp
+1365975390 source:c:\users\bananenkiste\documents\github\server\game.cpp
 	<iostream>
 	<winsock2.h>
 	<windows.h>
@@ -179,6 +179,7 @@
 	"Time.hpp"
 	"GameMechanics.hpp"
 	"TextureBuffer.hpp"
+	"Database.hpp"
 
 1365627542 c:\users\bananenkiste\documents\github\server\game.hpp
 	<sfml/window.hpp>
@@ -187,12 +188,13 @@
 	<vector>
 	<sstream>
 
-1365016209 c:\users\bananenkiste\documents\github\server\network.hpp
+1365945990 c:\users\bananenkiste\documents\github\server\network.hpp
 	<iostream>
 	<winsock2.h>
 	<windows.h>
+	<sfml/system.hpp>
 
-1365884397 c:\users\bananenkiste\documents\github\server\player.hpp
+1365973591 c:\users\bananenkiste\documents\github\server\player.hpp
 	<glm/glm.hpp>
 	<iostream>
 	<winsock2.h>
@@ -218,13 +220,14 @@
 1363711116 source:c:\users\bananenkiste\documents\github\server\message.cpp
 	"Message.hpp"
 
-1365905279 source:c:\users\bananenkiste\documents\github\server\player.cpp
+1365973555 source:c:\users\bananenkiste\documents\github\server\player.cpp
 	"Player.hpp"
 	"Network.hpp"
 	"Game.hpp"
 	"Chatwindow.hpp"
 	"GameMechanics.hpp"
 	"TextureBuffer.hpp"
+	"Database.hpp"
 	<sstream>
 	<windows.h>
 	<process.h>
@@ -232,18 +235,19 @@
 1363711116 source:c:\users\bananenkiste\documents\github\server\time.cpp
 	"Time.hpp"
 
-1365893306 source:c:\users\bananenkiste\documents\github\server\network.cpp
+1365971172 source:c:\users\bananenkiste\documents\github\server\network.cpp
 	"Network.hpp"
 	"Encryption.hpp"
 
-1365904256 source:c:\users\bananenkiste\documents\github\server\gamemechanics.cpp
+1365974365 source:c:\users\bananenkiste\documents\github\server\gamemechanics.cpp
 	"GameMechanics.hpp"
+	"Database.hpp"
 	"Player.hpp"
 	"Game.hpp"
 	"Level.hpp"
 	"Bomb.hpp"
 
-1365902262 c:\users\bananenkiste\documents\github\server\gamemechanics.hpp
+1365950753 c:\users\bananenkiste\documents\github\server\gamemechanics.hpp
 	<sfml/system.hpp>
 	<iostream>
 	<vector>
@@ -292,7 +296,7 @@
 	"Tile.hpp"
 	"TextureBuffer.hpp"
 
-1365899961 source:c:\users\bananenkiste\documents\github\server\bomb.cpp
+1365972174 source:c:\users\bananenkiste\documents\github\server\bomb.cpp
 	"Bomb.hpp"
 	"GameMechanics.hpp"
 	"TextureBuffer.hpp"
@@ -748,4 +752,68 @@
 
 1347478548 source:d:\codeblocks\server\time.cpp
 	"Time.hpp"
+
+1365969832 source:c:\users\bananenkiste\documents\github\server\database.cpp
+	"Database.hpp"
+	<cstring>
+	"sqlite3.h"
+
+1365967644 c:\users\bananenkiste\documents\github\server\database.hpp
+	<iostream>
+	<sfml/System.hpp>
+
+1365945990 c:\users\bananenkiste\documents\github\server\mutex.hpp
+	<sfml/system.hpp>
+
+1365945991 c:\users\bananenkiste\documents\github\server\sqlite3.h
+	<stdarg.h>
+
+1365945990 source:c:\users\bananenkiste\documents\github\server\mutex.cpp
+	"Mutex.hpp"
+
+1365945990 source:c:\users\bananenkiste\documents\github\server\sqlite3.c
+	"config.h"
+	<stdint.h>
+	<inttypes.h>
+	<tcl.h>
+	<stdarg.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<stddef.h>
+	<windows.h>
+	<ctype.h>
+	<time.h>
+	<sys/sysctl.h>
+	<malloc/malloc.h>
+	<libkern/OSAtomic.h>
+	<malloc.h>
+	<pthread.h>
+	<math.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<fcntl.h>
+	<unistd.h>
+	<sys/time.h>
+	<errno.h>
+	<sys/mman.h>
+	<sys/ioctl.h>
+	<semaphore.h>
+	<limits.h>
+	<sys/file.h>
+	<sys/param.h>
+	<sys/mount.h>
+	<utime.h>
+	<sys/dcmd_blk.h>
+	<sys/statvfs.h>
+	<dlfcn.h>
+	<sys/cygwin.h>
+	"sqlite3rtree.h"
+	<unicode/utypes.h>
+	<unicode/uregex.h>
+	<unicode/ustring.h>
+	<unicode/ucol.h>
+	<unicode/ubrk.h>
+	<unicode/utf16.h>
 

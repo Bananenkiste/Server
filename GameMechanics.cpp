@@ -1,5 +1,6 @@
 #include "GameMechanics.hpp"
 
+#include "Database.hpp"
 #include "Player.hpp"
 #include "Game.hpp"
 #include "Level.hpp"
@@ -25,7 +26,7 @@ GameMechanics::GameMechanics(std::vector<Player*>*playerlist)
     301111111111103
     */
     level = new Level("301111111111103021212121212120111130111031111121202020202121111111111111111020202121202121111130111031111021212121212120301111111111103");
-    Game::sendCommandToPlayers("RQST|MDE|6|"+level->getLevelString());
+    Game::sendCommandToPlayers("RQST|MDE|6|"+level->getLevelString()+"|");
     bombs = new std::vector<Bomb*>();
     for(std::vector<Player*>::iterator it=players->begin();it!=players->end();++it)
     {
@@ -46,13 +47,17 @@ void GameMechanics::handleInput(Player* player,std::string input)
         sf::Vector2f pos =player->getPosition();
         int x=(pos.x-30)/30;
         int y=(pos.y-30)/30;
-        //std::cout<<"INTF|BOMB|C|"<<x<<","<<y<<std::endl;
         std::stringstream posx,posy;
         posx<<x;
         posy<<y;
-        Game::sendCommandToPlayers("INTF|BOMB|C|"+posx.str()+","+posy.str());
-        level->setType(x,y,5);
-        bombs->push_back(new Bomb(sf::Vector2i(x,y)));
+        if(level->getTile(x,y)!=5)
+        {
+            Game::sendCommandToPlayers("INTF|BOMB|C|"+posx.str()+","+posy.str()+"|");
+            level->setType(x,y,5);
+            bombs->push_back(new Bomb(sf::Vector2i(x,y)));
+            player->bombCount();
+        }
+
         movement-=16;
     }
     switch(movement)
@@ -171,10 +176,22 @@ void GameMechanics::update(float deltatime)
         }
         case GAME:
         {
+            int activeplayers=0;
             for(std::vector<Player*>::iterator it=players->begin();it!=players->end();++it)
             {
                 (*it)->update(deltatime);
+                if((*it)->getAlive())
+                {
+                    ++activeplayers;
+                }
 
+            }
+            if(activeplayers<=0)
+            {
+                Game::sendCommandToPlayers("RQST|MDE|3|"); //add stats
+                std::cout<<"BACK TO LOBBY MODE"<<std::endl;
+                Game::changeState();
+                return;
             }
             for(std::vector<Bomb*>::iterator it=bombs->begin();it!=bombs->end();++it)
             {
@@ -219,24 +236,24 @@ void GameMechanics::explodeBomb(Bomb* bomb,int strenght)
         if((dist.x<=strenght2&&pos.x==playerpos.x)||(dist.y<=strenght2&&pos.y==playerpos.y))
         {
             (*it)->setAlive(false);
-            Game::sendCommandToPlayers("PACT|DTH|"+cid.str());
+            Game::sendCommandToPlayers("PACT|DTH|"+cid.str()+"|");
         }
     }
     std::stringstream posx,posy;
     std::vector<sf::Vector2i> box;
     posx<<pos.x;
     posy<<pos.y;
-    Game::sendCommandToPlayers("INTF|BOMB|R|"+posx.str()+","+posy.str());
+    Game::sendCommandToPlayers("INTF|BOMB|R|"+posx.str()+","+posy.str()+"|");
     bool up=true,down=true,left=true,right=true;
     for(int x=1;x<=strenght;++x)
     {
         if(up)
         {
-            if(pos.y-x<0||level->getTile(pos.x,pos.y-x)!=2)
+            if(pos.y-x<0||level->getTile(pos.x,pos.y-x)==2)
             {
                 up=false;
             }
-            else
+            else if(level->getTile(pos.x,pos.y-x)==1)
             {
                 level->setTile(pos.x,pos.y-x,0);
                 box.push_back(sf::Vector2i(pos.x,pos.y-x));
@@ -248,7 +265,7 @@ void GameMechanics::explodeBomb(Bomb* bomb,int strenght)
             {
                 down=false;
             }
-            else
+            else if(level->getTile(pos.x,pos.y+x)==1)
             {
                 level->setTile(pos.x,pos.y+x,0);
                 box.push_back(sf::Vector2i(pos.x,pos.y+x));
@@ -260,7 +277,7 @@ void GameMechanics::explodeBomb(Bomb* bomb,int strenght)
             {
                 left=false;
             }
-            else
+            else if(level->getTile(pos.x-x,pos.y)==1)
             {
                 level->setTile(pos.x-x,pos.y,0);
                 box.push_back(sf::Vector2i(pos.x-x,pos.y));
@@ -272,7 +289,7 @@ void GameMechanics::explodeBomb(Bomb* bomb,int strenght)
             {
                 right=false;
             }
-            else
+            else if(level->getTile(pos.x+x,pos.y)==1)
             {
                 level->setTile(pos.x+x,pos.y,0);
                 box.push_back(sf::Vector2i(pos.x+x,pos.y));

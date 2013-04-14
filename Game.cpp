@@ -115,7 +115,7 @@ void Game::init()
     Chatwindow::addText("Networktest - Server");
     Chatwindow::addText(Network::getIP().c_str());
     state = LOBBY;
-    Database::test();
+    //Database::test();
 
     run();
 
@@ -131,7 +131,6 @@ void Game::mainSocket(void* a)
         int x = getID();
         std::cout<<"ID:"<<x<<std::endl;
         Player* nplayer = new Player(x,newsocket);
-        Network::sendTcpData(nplayer->getSocket(),"IDENT|");
         players.push_back(nplayer);
     }
 }
@@ -147,7 +146,7 @@ void Game::identify(void* a)
         {
             if(strcmp("BBM|RQSRV",msg.c_str())==0&&state==LOBBY)
             {
-                Network::udpSend(udp,rec.ip,rec.port,"BBM|SRV|Bomberman Server|"+Network::getIP());
+                Network::udpSend(udp,rec.ip,rec.port,"BBM|SRV|Bomberman Server|"+Network::getIP()+"|");
                 //Network::broadcastSend(udp,40002,"BBM|SRV|Bomberman Server|"+Network::getIP());
                 Chatwindow::addText("Send indent");
             }
@@ -172,7 +171,7 @@ void Game::sendMessageToPlayers(std::string msg)
 {
     for(std::vector<Player*>::iterator it = players.begin();it!=players.end();++it)
     {
-        Network::sendTcpData((*it)->getSocket(),"MSG|"+msg);
+        Network::sendTcpData((*it)->getSocket(),"MSG|"+msg+"|");
     }
 }
 
@@ -191,7 +190,7 @@ void Game::sendPlayersToPlayer(Player* pl)
         std::stringstream stream;
         stream<<(*lst)->getId();
         std::string msg = "PJOIN|"+stream.str();
-        msg = msg+"|"+(*lst)->getName().c_str();
+        msg = msg+"|"+(*lst)->getName().c_str()+"|";
         Network::sendTcpData(pl->getSocket(),msg);
     }
 }
@@ -254,4 +253,6 @@ void Game::startGame()
 void Game::changeState()
 {
     state=LOBBY;
+    players.clear();
+
 }

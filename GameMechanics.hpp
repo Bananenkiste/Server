@@ -17,7 +17,7 @@ class GameMechanics
 {
     public:
 
-        enum State{PREGAME,GAME,DEBRIEF};
+        enum State{PREGAME,GAME};
 
         GameMechanics(std::vector<Player*>*playerlist);
         static void handleInput(Player* player,std::string input);

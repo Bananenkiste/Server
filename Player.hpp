@@ -30,8 +30,11 @@ class Player
         sf::Vector2f getPosition();
         void setPosition(sf::Vector2f npos);
         void setAlive(bool state);
+        bool getAlive();
         int getDir();
         void setDir(int ndir);
+        int getBombCount();
+        void bombCount();
 
     private:
         void networkthread();
@@ -49,6 +52,7 @@ class Player
         bool ready;
         int state;
         bool alive;
+        int bombcount;
 };
 
 #endif // PLAYER_H

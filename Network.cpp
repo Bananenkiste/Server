@@ -130,7 +130,7 @@ std::string Network::recieveData(SOCKET node)
     rc=recv(node,buffer,256,0);
     if(rc<=0)
     {
-        strcpy(buffer,"CLOSE");
+        strcpy(buffer,"CLOSE|");
         return(buffer);
     }
     else if (rc>0)
@@ -139,7 +139,6 @@ std::string Network::recieveData(SOCKET node)
     }
     msg = Encryption::decrypt(buffer);
     std::cout<<"N-Message"<<msg<<std::endl;
-
     return msg;
 }
 

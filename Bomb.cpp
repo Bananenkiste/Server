@@ -9,7 +9,7 @@ Bomb::Bomb(sf::Vector2i pos)
     bomb = TextureBuffer::LoadTexture("bomb",true,30+(pos.x*30),30+(pos.y*30));
     TextureBuffer::LoadTexture("buffer",false);
     timer=2;
-    strength=1;
+    strength=3;
 }
 
 Bomb::~Bomb()

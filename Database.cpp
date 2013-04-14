@@ -1,5 +1,4 @@
 #include "Database.hpp"
-#include "Mutex.hpp"
 
 #include <cstring>
 
@@ -10,8 +9,12 @@ sf::Mutex Database::databaseAccess;
 
 void Database::test()
 {
-    std::cout<<"test"<<std::endl;
-    getData("Select * FROM players");
+    std::cout<<getData("Select * FROM players")<<std::endl;
+    std::cout<<getData("Select * FROM players")<<std::endl;
+    Login("Daniel","asdf");
+    Login("Martin","asdf");
+    insertData("INSERT INTO main.usr(usr_name,usr_password) VALUES ('Martin','asdf')");
+    Login("Martin","asdf");
 }
 
 
@@ -19,47 +22,77 @@ void Database::insertData(std::string data)
 {
     databaseAccess.lock();
 
+    //"INSERT INTO main.usr(usr_name,usr_password) VALUES ("Daniel","asdf")"
 
+    sqlite3 * db;
+    int result;
+    result = sqlite3_open( "bomberman_db", &db );
+    if ( result == SQLITE_OK )
+    {
+        const char * rqst = data.c_str();
+        char * error = NULL;
+        result = sqlite3_exec(db,rqst,NULL,NULL,&error);
+        if(result!=SQLITE_OK)
+        {
+            std::cout<<"insert error"<<std::endl;
+        }
+    }
+    else
+    {
+        std::cout<<"database error"<<std::endl;
+    }
+    sqlite3_close(db);
     databaseAccess.unlock();
 }
 
 std::string Database::getData(std::string request)
 {
-    std::cout<<"getdata"<<std::endl;
-    //databaseAccess.lock();
+    databaseAccess.lock();
 
     sqlite3 * db;
 	int result;
-	result = sqlite3_open( "game_db", &db );
+	std::string data="";
+	result = sqlite3_open( "bomberman_db", &db );
     if ( result == SQLITE_OK )
     {
         const char * rqst = request.c_str();
-        const char * error = NULL;
+        int row,colum;
+        char** out;
+        char * error = NULL;
 
-        sqlite3_stmt* statement;
-        result = sqlite3_prepare_v2(db,rqst,strlen(rqst)+1,&statement, &error);
+        result = sqlite3_get_table(db,rqst,&out,&row,&colum,&error);
+
         if(result==SQLITE_OK)
         {
-            int columns = sqlite3_column_count( statement );
-
-            /*while ( sqlite3_step( statement ) == SQLITE_ROW )
+            for(int y=1;y<row+1;++y)
             {
-				std::cout << "Row : " ;
-				for ( int c = 0; c < columns; c++ )
-				{
-					const char * cell = (const char *)sqlite3_column_text( statement, c );
-					std::cout << cell << " ";
-				}
-				std::cout << std::endl;
-			}*/
+                for(int x=0;x<colum;++x)
+                {
+                    data+=out[(y*colum)+x];
+                    data+="|";
+                }
+            }
         }
-
+        sqlite3_free_table(out);
     }
     else
     {
         std::cout<<"Database problem"<<std::endl;
     }
     sqlite3_close(db);
-
-	//databaseAccess.unlock();
+	databaseAccess.unlock();
+	return(data);
 }
+
+bool Database::Login(std::string name, std::string pw)
+{
+    std::string request = "select * from usr where usr_name='"+name+"' AND usr_password='"+pw+"';";
+    std::string result = getData(request);
+    std::cout<<request<<":"<<result.length()<<std::endl;
+    if(result.length()==0)
+    {
+        return(false);
+    }
+    return(true);
+}
+

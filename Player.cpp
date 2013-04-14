@@ -4,6 +4,7 @@
 #include "Chatwindow.hpp"
 #include "GameMechanics.hpp"
 #include "TextureBuffer.hpp"
+#include "Database.hpp"
 #include <sstream>
 #include <windows.h>
 #include <process.h>
@@ -24,7 +25,9 @@ Player::Player(int aid, SOCKET asocket): id(aid), socket(asocket), nthread(&Play
 
 Player::~Player()
 {
-
+    std::stringstream stream;
+    stream<<id;
+    Game::sendCommandToPlayers("PLEAVE|"+stream.str()+"|");
 }
 
 int Player::getId()
@@ -41,6 +44,11 @@ std::string Player::getName()
 SOCKET Player::getSocket()
 {
     return(socket);
+}
+
+bool Player::getAlive()
+{
+    return(alive);
 }
 
 void Player::update(float step)
@@ -78,7 +86,7 @@ void Player::update(float step)
             mov_x<<position.x;
             mov_y<<position.y;
             cdir<<dir;
-            Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+cdir.str());
+            Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+cdir.str()+"|");
         }
     }
     if(dir!=0)
@@ -135,7 +143,7 @@ void Player::update(float step)
                     mov_x<<position.x;
                     mov_y<<position.y;
                     cdir<<dir;
-                    Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+cdir.str());
+                    Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+cdir.str()+"|");
                 }
             }
             else
@@ -146,7 +154,7 @@ void Player::update(float step)
                 mov_x<<position.x;
                 mov_y<<position.y;
                 cdir<<dir;
-                Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+cdir.str());
+                Game::sendCommandToPlayers("PACT|MOV|"+cid.str()+"|"+mov_x.str()+"|"+mov_y.str()+"|"+cdir.str()+"|");
             }
         }
     }
@@ -182,17 +190,53 @@ void Player::networkthread()
                     Game::removePlayer(this);
                     return;
                 }
-                if(strcmp("IDENT",key.c_str())==0)
+                if(strcmp("REG",key.c_str())==0)
                 {
-                    name = msg.substr(msg.find_first_of("|")+1);
+                    msg = msg.substr(msg.find_first_of("|")+1);
+                    name = msg.substr(0,msg.find_first_of("|"));
+                    msg = msg.substr(msg.find_first_of("|")+1);
+                    std::string password = msg.substr(msg.find_first_of("|")+1);
                     std::stringstream cid;
                     cid<<this->id;
-
-                    std::string nmsg = "PJOIN|"+cid.str()+"|"+name.c_str()+"|";
-                    Game::sendCommandToPlayers(nmsg);
-                    Game::sendPlayersToPlayer(this);
-                    Chatwindow::addText(nmsg);
-
+                    Database::insertData("INSERT INTO main.usr(usr_name,usr_password)Values('"+name+"','"+password+"');");
+                    if(Database::Login(name,password))
+                    {
+                        Network::sendTcpData(socket,"RQST|MDE|4|");
+                        std::string nmsg = "PJOIN|"+cid.str()+"|"+name.c_str()+"|";
+                        Game::sendCommandToPlayers(nmsg);
+                        Game::sendPlayersToPlayer(this);
+                        Chatwindow::addText(nmsg);
+                    }
+                    else
+                    {
+                        Network::sendTcpData(socket,"RQST|MDE|3|");
+                        Network::closeSocket(socket);
+                        Game::removePlayer(this);
+                    }
+                }
+                if(strcmp("IDENT",key.c_str())==0)
+                {
+                    msg = msg.substr(msg.find_first_of("|")+1);
+                    name = msg.substr(0,msg.find_first_of("|"));
+                    msg = msg.substr(msg.find_first_of("|")+1);
+                    std::string password = msg.substr(0,msg.find_first_of("|"));
+                    std::stringstream cid;
+                    cid<<this->id;
+                    //login
+                    if(Database::Login(name,password))
+                    {
+                        Network::sendTcpData(socket,"RQST|MDE|4|");
+                        std::string nmsg = "PJOIN|"+cid.str()+"|"+name.c_str()+"|";
+                        Game::sendCommandToPlayers(nmsg);
+                        Game::sendPlayersToPlayer(this);
+                        Chatwindow::addText(nmsg);
+                    }
+                    else
+                    {
+                        Network::sendTcpData(socket,"RQST|MDE|3|");
+                        Network::closeSocket(socket);
+                        Game::removePlayer(this);
+                    }
                 }
                 if(strcmp("MSG",key.c_str())==0)
                 {
@@ -207,7 +251,7 @@ void Player::networkthread()
                     ready=!ready;
                     std::stringstream cid;
                     cid<<this->id;
-                    std::string nmsg = "PACT|RDY|"+cid.str();
+                    std::string nmsg = "PACT|RDY|"+cid.str()+"|";
                     Game::sendCommandToPlayers(nmsg);
                     if(ready)
                     {
@@ -219,7 +263,6 @@ void Player::networkthread()
                     std::stringstream intf;
                     intf<<msg.substr(msg.find_first_of("|")+1);
                     intf>>state;
-                    std::cout<<"awesome fucking state: "<<state<<"string manipulation: "<< intf.str()<<std::endl;
                 }
                 if(strcmp("MOV",key.c_str())==0)
                 {
@@ -267,5 +310,15 @@ void Player::setDir(int ndir)
 void Player::setAlive(bool state)
 {
     alive=state;
+}
+
+int Player::getBombCount()
+{
+    return(bombcount);
+}
+
+void Player::bombCount()
+{
+    ++bombcount;
 }
 
