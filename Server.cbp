@@ -44,6 +44,8 @@
 		<Unit filename="Bomb.hpp" />
 		<Unit filename="Chatwindow.cpp" />
 		<Unit filename="Chatwindow.hpp" />
+		<Unit filename="Encryption.cpp" />
+		<Unit filename="Encryption.hpp" />
 		<Unit filename="Game.cpp" />
 		<Unit filename="Game.hpp" />
 		<Unit filename="GameMechanics.cpp" />
