@@ -11,7 +11,7 @@
 #include "Time.hpp"
 #include "GameMechanics.hpp"
 #include "TextureBuffer.hpp"
-
+#include "Database.hpp"
 
 bool Game::end;
 int Game::state;
@@ -115,7 +115,7 @@ void Game::init()
     Chatwindow::addText("Networktest - Server");
     Chatwindow::addText(Network::getIP().c_str());
     state = LOBBY;
-
+    Database::test();
 
     run();
 

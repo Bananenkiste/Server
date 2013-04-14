@@ -4,7 +4,7 @@
 //Global Variables
 bool Network::i;
 FD_SET Network::fdset;
-
+sf::Mutex Network::netblock;
 
 
 
@@ -115,30 +115,32 @@ void Network::WaitForClient(SOCKET node, SOCKET s)
 
 void Network::sendTcpData(SOCKET node,std::string msg)
 {
+    netblock.lock();
     std::cout<<"out:"<<msg<<std::endl;
     msg=Encryption::encrypt(msg);
     send(node,msg.c_str(),strlen(msg.c_str()),0);
+    netblock.unlock();
 }
 
 std::string Network::recieveData(SOCKET node)
 {
-        char buffer[256];
-        int rc;
-        std::string msg;
-        rc=recv(node,buffer,256,0);
-        if(rc<=0)
-        {
-            strcpy(buffer,"CLOSE");
-            return(buffer);
-        }
-        else if (rc>0)
-        {
-            buffer[rc]=0;
-        }
-        msg = Encryption::decrypt(buffer);
-        std::cout<<"N-Message"<<msg<<std::endl;
+    char buffer[256];
+    int rc;
+    std::string msg;
+    rc=recv(node,buffer,256,0);
+    if(rc<=0)
+    {
+        strcpy(buffer,"CLOSE");
+        return(buffer);
+    }
+    else if (rc>0)
+    {
+        buffer[rc]=0;
+    }
+    msg = Encryption::decrypt(buffer);
+    std::cout<<"N-Message"<<msg<<std::endl;
 
-        return msg;
+    return msg;
 }
 
 udpMessage Network::recieveUdpData(SOCKET node)

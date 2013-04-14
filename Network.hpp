@@ -6,6 +6,8 @@
 #include <windows.h>
 //libws2_32.a einbinden
 
+#include <sfml/system.hpp>
+
 struct udpMessage
 {
     std::string ip;
@@ -44,6 +46,7 @@ class Network
     private:
         static bool i;
         static FD_SET fdset;
+        static sf::Mutex netblock;
 };
 
 #endif // SOCKET_H
