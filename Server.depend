@@ -311,96 +311,95 @@
 1365872726 c:\users\bananenkiste\documents\github\server\encryption.hpp
 	<iostream>
 
-1360618889 source:n:\repositorys\server\chatwindow.cpp
+1365980446 source:n:\repositorys\server\chatwindow.cpp
 	"Chatwindow.hpp"
 	"Message.hpp"
 
-1360617452 n:\repositorys\server\chatwindow.hpp
+1365980446 n:\repositorys\server\chatwindow.hpp
 	<sfml/window.hpp>
 	<sfml/graphics.hpp>
 	<vector>
 
-1360618738 n:\repositorys\server\message.hpp
+1365980446 n:\repositorys\server\message.hpp
 	<iostream>
 	<sfml/window.hpp>
 	<sfml/graphics.hpp>
 
-1360608201 source:n:\repositorys\server\interface.cpp
+1365980446 source:n:\repositorys\server\interface.cpp
 	"Interface.hpp"
 
-1360608196 n:\repositorys\server\interface.hpp
+1365980446 n:\repositorys\server\interface.hpp
 	<sfml/window.hpp>
 	<sfml/graphics.hpp>
 
-1360271481 source:n:\repositorys\server\main.cpp
+1365980446 source:n:\repositorys\server\main.cpp
 	<iostream>
 	"Game.hpp"
 
-1365677604 n:\repositorys\server\game.hpp
+1365980446 n:\repositorys\server\game.hpp
 	<sfml/window.hpp>
 	<sfml/graphics.hpp>
 	<sfml/system.hpp>
 	<vector>
 	<sstream>
 
-1360624001 source:n:\repositorys\server\message.cpp
+1365980446 source:n:\repositorys\server\message.cpp
 	"Message.hpp"
 
-1347478548 source:n:\repositorys\server\time.cpp
+1365980446 source:n:\repositorys\server\time.cpp
 	"Time.hpp"
 
-1347478550 n:\repositorys\server\time.hpp
+1365980446 n:\repositorys\server\time.hpp
 	<sfml/system.hpp>
 
-1365930791 source:n:\repositorys\server\animation.cpp
+1365980446 source:n:\repositorys\server\animation.cpp
 	"Animation.hpp"
 	<sstream>
 	<iostream>
 
-1365930791 n:\repositorys\server\animation.hpp
+1365980446 n:\repositorys\server\animation.hpp
 	"TextureBuffer.hpp"
 	<sfml/Graphics.hpp>
 	<glm/glm.hpp>
 	<vector>
 
-1365930791 n:\repositorys\server\texturebuffer.hpp
+1365980446 n:\repositorys\server\texturebuffer.hpp
 	<iostream>
 	<map>
 	<sfml/Graphics.hpp>
 
-1365930791 source:n:\repositorys\server\bomb.cpp
+1365980446 source:n:\repositorys\server\bomb.cpp
 	"Bomb.hpp"
 	"GameMechanics.hpp"
 	"TextureBuffer.hpp"
 
-1365930791 n:\repositorys\server\bomb.hpp
+1365980446 n:\repositorys\server\bomb.hpp
 	<sfml/graphics.hpp>
 	<sfml/window.hpp>
 
-1365930791 n:\repositorys\server\gamemechanics.hpp
+1365980446 n:\repositorys\server\gamemechanics.hpp
 	<sfml/system.hpp>
 	<iostream>
 	<vector>
 	<sfml/graphics.hpp>
 	<sfml/window.hpp>
 
-1365941484 source:n:\repositorys\server\database.cpp
+1365980446 source:n:\repositorys\server\database.cpp
 	"Database.hpp"
-	"Mutex.hpp"
 	<cstring>
 	"sqlite3.h"
 
-1365938011 n:\repositorys\server\database.hpp
+1365980446 n:\repositorys\server\database.hpp
 	<iostream>
 	<sfml/System.hpp>
 
-1357761112 n:\repositorys\server\sqlite3.h
+1365980446 n:\repositorys\server\sqlite3.h
 	<stdarg.h>
 
-1365936810 n:\repositorys\server\mutex.hpp
+1365980446 n:\repositorys\server\mutex.hpp
 	<sfml/system.hpp>
 
-1365939749 source:n:\repositorys\server\game.cpp
+1365980446 source:n:\repositorys\server\game.cpp
 	<iostream>
 	<winsock2.h>
 	<windows.h>
@@ -414,13 +413,13 @@
 	"TextureBuffer.hpp"
 	"Database.hpp"
 
-1365937201 n:\repositorys\server\network.hpp
+1365980446 n:\repositorys\server\network.hpp
 	<iostream>
 	<winsock2.h>
 	<windows.h>
 	<sfml/system.hpp>
 
-1365930791 n:\repositorys\server\player.hpp
+1365980446 n:\repositorys\server\player.hpp
 	<glm/glm.hpp>
 	<iostream>
 	<winsock2.h>
@@ -429,53 +428,55 @@
 	<sfml/window.hpp>
 	<sfml/system.hpp>
 
-1365930791 source:n:\repositorys\server\gamemechanics.cpp
+1365980446 source:n:\repositorys\server\gamemechanics.cpp
 	"GameMechanics.hpp"
+	"Database.hpp"
 	"Player.hpp"
 	"Game.hpp"
 	"Level.hpp"
 	"Bomb.hpp"
 
-1365930791 n:\repositorys\server\level.hpp
+1365980446 n:\repositorys\server\level.hpp
 	<iostream>
 	<vector>
 	<sfml/graphics.hpp>
 	<sfml/window.hpp>
 	<sfml/system.hpp>
 
-1365930791 source:n:\repositorys\server\level.cpp
+1365980446 source:n:\repositorys\server\level.cpp
 	"Level.hpp"
 	"Tile.hpp"
 
-1365930791 n:\repositorys\server\tile.hpp
+1365980446 n:\repositorys\server\tile.hpp
 	<iostream>
 	<sstream>
 	<sfml/graphics.hpp>
 	<sfml/window.hpp>
 	<sfml/system.hpp>
 
-1365931733 source:n:\repositorys\server\mutex.cpp
+1365980446 source:n:\repositorys\server\mutex.cpp
 	"Mutex.hpp"
 
-1365937248 source:n:\repositorys\server\network.cpp
+1365980446 source:n:\repositorys\server\network.cpp
 	"Network.hpp"
 	"Encryption.hpp"
 
-1365930791 n:\repositorys\server\encryption.hpp
+1365980446 n:\repositorys\server\encryption.hpp
 	<iostream>
 
-1365930791 source:n:\repositorys\server\player.cpp
+1365980446 source:n:\repositorys\server\player.cpp
 	"Player.hpp"
 	"Network.hpp"
 	"Game.hpp"
 	"Chatwindow.hpp"
 	"GameMechanics.hpp"
 	"TextureBuffer.hpp"
+	"Database.hpp"
 	<sstream>
 	<windows.h>
 	<process.h>
 
-1357761112 source:n:\repositorys\server\sqlite3.c
+1365980446 source:n:\repositorys\server\sqlite3.c
 	"config.h"
 	<stdint.h>
 	<inttypes.h>
@@ -521,15 +522,15 @@
 	<unicode/ubrk.h>
 	<unicode/utf16.h>
 
-1365930791 source:n:\repositorys\server\texturebuffer.cpp
+1365980446 source:n:\repositorys\server\texturebuffer.cpp
 	"TextureBuffer.hpp"
 	"Animation.hpp"
 
-1365930791 source:n:\repositorys\server\tile.cpp
+1365980446 source:n:\repositorys\server\tile.cpp
 	"Tile.hpp"
 	"TextureBuffer.hpp"
 
-1365930791 source:n:\repositorys\server\encryption.cpp
+1365980446 source:n:\repositorys\server\encryption.cpp
 	"Encryption.hpp"
 
 1365930791 source:d:\codeblocks\server\animation.cpp
